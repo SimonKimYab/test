@@ -1,0 +1,227 @@
+:root {
+  --ink: #241418;
+  --paper: #f6edd8;
+  --paper-edge: #e4d3b0;
+  --wine: #7c2433;
+  --gold: #e4c88a;
+  --gold-dim: #a68445;
+  --bg: #140d10;
+  --panel: rgba(28, 16, 20, 0.88);
+  --line: rgba(228, 200, 138, 0.35);
+  color: var(--paper);
+  font-family: "Segoe UI", "Iowan Old Style", Palatino, Georgia, serif;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(124, 36, 51, 0.35), transparent 42%),
+    linear-gradient(180deg, #2a161c 0%, var(--bg) 48%);
+  color: var(--paper);
+}
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+#app { min-height: 100vh; }
+
+.home, .lobby, .table {
+  width: min(1100px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 28px 0 40px;
+}
+.brand {
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-size: 13px;
+  color: var(--gold);
+  margin: 0 0 8px;
+}
+h1 {
+  font-family: Palatino, Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(40px, 6vw, 68px);
+  line-height: 0.95;
+  margin: 0 0 12px;
+}
+.lede { max-width: 46ch; color: #f0e2c8; opacity: 0.86; }
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 18px;
+  backdrop-filter: blur(8px);
+}
+.row { display: flex; gap: 10px; flex-wrap: wrap; }
+label { display: grid; gap: 6px; font-size: 14px; color: var(--gold); }
+input {
+  background: #1b1014;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  min-width: 0;
+}
+.btn {
+  border: 1px solid var(--gold-dim);
+  background: linear-gradient(#8d3140, #641c28);
+  color: var(--paper);
+  border-radius: 999px;
+  padding: 12px 18px;
+}
+.btn.ghost {
+  background: transparent;
+  color: var(--gold);
+}
+.btn:disabled { opacity: 0.45; cursor: default; }
+.btn.selected { outline: 2px solid var(--gold); }
+.home-grid, .lobby-grid, .play-grid {
+  display: grid;
+  gap: 16px;
+}
+.home-grid { grid-template-columns: minmax(0, 460px); margin-top: 28px; }
+.lobby-grid, .play-grid { grid-template-columns: 1fr 300px; margin-top: 18px; }
+
+.seat-list { display: grid; gap: 8px; margin: 12px 0; }
+.seat {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid transparent;
+}
+.seat.me { border-color: var(--line); }
+.tag { color: var(--gold); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+.opponents {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+.person {
+  background: rgba(20, 10, 14, 0.55);
+  border: 1px solid rgba(228, 200, 138, 0.18);
+  border-radius: 16px;
+  padding: 10px;
+  min-height: 132px;
+}
+.person.turn { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(228, 200, 138, 0.25); }
+.person.out { opacity: 0.55; }
+.person.targetable { outline: 2px solid var(--gold); cursor: pointer; }
+.person.picked { background: rgba(124, 36, 51, 0.45); }
+.person-top, .you-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: baseline;
+}
+.hearts { color: #f2c6ce; letter-spacing: 3px; font-size: 18px; }
+.mini-row, .hand, .guesses, .choice-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.mini {
+  width: 54px;
+  min-height: 72px;
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 6px;
+  font-size: 11px;
+}
+.mini b { display: block; font-size: 14px; }
+.back, .card.back {
+  background:
+    radial-gradient(circle at 50% 40%, rgba(228, 200, 138, 0.2), transparent 46%),
+    repeating-linear-gradient(45deg, #6d2432 0 8px, #541824 8px 16px);
+  color: var(--gold);
+  border: 1px solid var(--gold-dim);
+}
+.card {
+  width: 128px;
+  min-height: 184px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #fffaf0, var(--paper) 40%, var(--paper-edge));
+  color: var(--ink);
+  text-align: left;
+  padding: 10px 10px 12px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.card .val {
+  font-family: Palatino, Georgia, serif;
+  font-size: 22px;
+  color: var(--wine);
+}
+.card .nm { font-weight: 700; }
+.card .ef { font-size: 12px; line-height: 1.3; color: #5c4636; }
+.card.selected { transform: translateY(-8px); outline: 3px solid var(--gold); }
+.card.locked { opacity: 0.4; }
+.card.v9 .val, .card.v8 .val { color: #8d1d2c; }
+.card.v0 .val { color: #6d645b; }
+
+.you {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(20, 10, 14, 0.72);
+  border: 1px solid var(--line);
+}
+.center-row {
+  display: flex;
+  gap: 18px;
+  align-items: start;
+  margin: 14px 0;
+  flex-wrap: wrap;
+}
+.pile { display: grid; justify-items: center; gap: 6px; text-align: center; font-size: 13px; color: var(--gold); }
+.pile .back { width: 72px; height: 100px; border-radius: 10px; display: grid; place-items: center; }
+
+.log, .ref { display: grid; gap: 8px; align-content: start; }
+.log p, .note { margin: 0; font-size: 14px; line-height: 1.35; }
+.note { color: var(--gold); }
+.scroll {
+  max-height: 420px;
+  overflow: auto;
+  display: grid;
+  gap: 8px;
+  padding-right: 4px;
+}
+.banner {
+  border-left: 3px solid var(--gold);
+  padding: 8px 10px;
+  background: rgba(228, 200, 138, 0.08);
+}
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  background: #3a1420;
+  border: 1px solid var(--gold);
+  padding: 12px 16px;
+  border-radius: 999px;
+  z-index: 5;
+}
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 4, 6, 0.72);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  z-index: 4;
+}
+.overlay .panel { width: min(720px, 100%); }
+.ref-list { display: grid; gap: 8px; }
+.ref-item { display: grid; grid-template-columns: 28px 1fr; gap: 8px; font-size: 14px; }
+code { color: var(--gold); }
+
+@media (max-width: 860px) {
+  .home-grid, .lobby-grid, .play-grid { grid-template-columns: 1fr; }
+  .card { width: 104px; min-height: 156px; }
+  .scroll { max-height: 180px; }
+}
