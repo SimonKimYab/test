@@ -219,7 +219,7 @@ function tableHtml() {
       </section>
       <aside class="panel log">
         <p class="tag">Ход партии</p>
-        <div class="scroll">${(state.log || []).slice(-12).map((line) => `<p>${esc(line)}</p>`).join("")}</div>
+        <div class="scroll">${(state.log || []).slice(-12).reverse().map((line) => `<p>${esc(line)}</p>`).join("")}</div>
       </aside>
     </div>
     ${choice}${result}${rulesOverlay()}${cardsOverlay()}
